@@ -9,3 +9,4 @@ export const SHOW_ALERT = 'SHOW_ALERT';
  * Values
  */
 export const APPEND_PROPERTY_VALUE = 'APPEND_PROPERTY_VALUE';
+export const SET_PROPERTY_VALUE = 'SET_PROPERTY_VALUE';
