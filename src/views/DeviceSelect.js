@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, DeviceEventEmitter} from 'react-native';
 import obd2 from 'react-native-obd2';
 import DeviceCard from '../components/DeviceCard';
+import {appendData} from '../actions/dataActions';
 
 class DeviceSelect extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class DeviceSelect extends Component {
     let copyData = JSON.parse(JSON.stringify(this.state.obd2Data));
     copyData[data.cmdID] = data;
     this.setState({obd2Data: copyData});
-    console.log(data);
+    appendData(data);
   }
 
   render() {
