@@ -17,11 +17,15 @@ export default (state = INITIAL_STATE, action) => {
     case APPEND_PROPERTY_VALUE:
       const data = {...state.data};
       const obj = action.payload;
-      if (obj.cmdID !== 'VIN') {
-        data[obj.cmdID].push({
-          cmdResult: obj.cmdResult,
-          time: new Date().toISOString(),
-        });
+      if (obj) {
+        if (obj.cmdID !== 'VIN') {
+          if (data[obj.cmdID]) {
+            data[obj.cmdID].push({
+              cmdResult: obj.cmdResult,
+              time: new Date().toISOString(),
+            });
+          }
+        }
       }
       return {...state, data};
     case SET_PROPERTY_VALUE:

@@ -3,6 +3,7 @@ import {View, Text, DeviceEventEmitter} from 'react-native';
 import obd2 from 'react-native-obd2';
 import DeviceCard from '../components/DeviceCard';
 import {appendData} from '../actions/dataActions';
+import {connect} from 'react-redux';
 
 class DeviceSelect extends Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class DeviceSelect extends Component {
     let copyData = JSON.parse(JSON.stringify(this.state.obd2Data));
     copyData[data.cmdID] = data;
     this.setState({obd2Data: copyData});
-    appendData(data);
+    this.props.appendData(this.props.VIN, data);
   }
 
   render() {
@@ -72,4 +73,8 @@ class DeviceSelect extends Component {
   }
 }
 
-export default DeviceSelect;
+const mapStateToProps = state => ({
+  VIN: state.data.data.VIN,
+});
+
+export default connect(mapStateToProps, {appendData})(DeviceSelect);
