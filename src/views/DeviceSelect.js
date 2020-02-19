@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, DeviceEventEmitter} from 'react-native';
+import {View, Text, DeviceEventEmitter, Button} from 'react-native';
 import obd2 from 'react-native-obd2';
 import DeviceCard from '../components/DeviceCard';
 import {appendData} from '../actions/dataActions';
@@ -68,6 +68,7 @@ class DeviceSelect extends Component {
             onPress={() => this.selectDevice(device)}
           />
         ))}
+        <Button onPress={obd2.stopLiveData} title="Stop" />
       </View>
     );
   }
