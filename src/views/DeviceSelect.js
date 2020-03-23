@@ -52,7 +52,6 @@ class DeviceSelect extends Component {
       'obd2LiveData',
       this.obdLiveData,
     );
-    obd2.setMockUpMode(true);
     obd2.startLiveData(device.address);
     this.props.setDevice(device);
   }
