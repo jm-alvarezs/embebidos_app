@@ -7,6 +7,7 @@ import {
 } from './types';
 import DataService from '../services/DataService';
 import CargaService from '../services/CargaService';
+import moment from 'moment';
 
 export const appendData = (VIN, data) => dispatch => {
   if (data) {
@@ -27,26 +28,26 @@ export const stopLiveData = () => dispatch => {
   dispatch({type: STOP_DATA});
 };
 
-export const postData = (VIN, data) => dispatch => {
+export const postData = (VIN, cmdID, data) => dispatch => {
   let filtered = data.map(cmd => ({
     ...cmd,
     cmdResult: parseInt(cmd.cmdResult.replace(/^d/g, '')),
   }));
   if (filtered.length === 0) return;
-  let average = filtered.reduce((a, b) => a + b) / filtered.length;
+  let sum = 0;
+  for (let i = 0; i < filtered.legnth; i++) {
+    sum += filtered[0].cmdResult;
+  }
+  let average = sum / filtered.length;
   if (isNaN(average)) return;
-  DataService.postData(
-    VIN,
-    data.cmdID,
-    average,
-    new Date().toUTCString(),
-  ).catch(e => console.log(e));
+  DataService.postData(VIN, cmdID, average, moment().utc()).catch(e =>
+    console.log(e),
+  );
   dispatch({type: RESET_CMD, payload: data[0].cmdID});
 };
 
 export const postCarga = (VIN, latitud, longitud) => dispatch => {
-  console.log(VIN, latitud, longitud);
-  CargaService.postCarga(VIN, new Date().toUTCString(), latitud, longitud)
+  CargaService.postCarga(VIN, moment().utc(), latitud, longitud)
     .then(res => {
       dispatch({type: CARGA_REGISTRADA});
     })

@@ -4,6 +4,7 @@ import {
   STOP_DATA,
   RESET_CMD,
 } from '../actions/types';
+import moment from 'moment';
 
 const INITIAL_STATE = {
   data: {
@@ -25,7 +26,7 @@ export default (state = INITIAL_STATE, action) => {
           if (data[obj.cmdID]) {
             data[obj.cmdID].push({
               cmdResult: obj.cmdResult,
-              time: new Date().toISOString(),
+              time: moment().utc(),
             });
           }
         }

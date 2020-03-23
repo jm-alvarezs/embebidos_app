@@ -16,6 +16,7 @@ class DeviceSelect extends Component {
       obd2Data: {},
     };
     this.obdLiveData = this.obdLiveData.bind(this);
+    this.postData = this.postData.bind(this);
   }
 
   intervals = {};
@@ -51,6 +52,7 @@ class DeviceSelect extends Component {
       'obd2LiveData',
       this.obdLiveData,
     );
+    obd2.setMockUpMode(true);
     obd2.startLiveData(device.address);
     this.props.setDevice(device);
   }
@@ -60,7 +62,7 @@ class DeviceSelect extends Component {
   }
 
   postData(cmdID) {
-    this.props.postData(this.props.VIN, this.props[cmdID]);
+    this.props.postData(this.props.VIN, cmdID, this.props[cmdID]);
   }
 
   obdLiveData(data) {
@@ -68,13 +70,13 @@ class DeviceSelect extends Component {
     copyData[data.cmdID] = data;
     this.setState({obd2Data: copyData});
     if (this.fields.findIndex(cmdID => cmdID === data.cmdID) !== -1) {
-      if (data.cmdResult !== null) {
-        this.props.appendData(this.props.VIN, data);
-      }
       if (this.props[data.cmdID].length === 0) {
         setInterval(() => {
           this.postData(data.cmdID);
-        }, 60000);
+        }, 5000);
+      }
+      if (data.cmdResult !== null) {
+        this.props.appendData(this.props.VIN, data);
       }
     } else if (data.cmdID === 'VIN') {
       this.props.appendData(data.cmdResult);
