@@ -72,7 +72,7 @@ class DeviceSelect extends Component {
       if (this.props[data.cmdID].length === 0) {
         setInterval(() => {
           this.postData(data.cmdID);
-        }, 5000);
+        }, 60000);
       }
       if (data.cmdResult !== null) {
         this.props.appendData(this.props.VIN, data);
