@@ -1,14 +1,17 @@
-import {APPEND_PROPERTY_VALUE, SET_PROPERTY_VALUE} from '../actions/types';
+import {
+  APPEND_PROPERTY_VALUE,
+  SET_PROPERTY_VALUE,
+  STOP_DATA,
+  RESET_CMD,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   data: {
     VIN: null,
-    ENGINE_LOAD: [],
     ENGINE_RPM: [],
     FUEL_LEVEL: [],
-    MAF: [],
-    THROTTLE_POSITION: [],
     FUEL_CONSUMPTION_RATE: [],
+    ENGINE_COOLANT_TEMP: [],
   },
 };
 
@@ -32,6 +35,16 @@ export default (state = INITIAL_STATE, action) => {
       const datos = {...state.data};
       datos[action.payload.cmdID] = action.payload.cmdResult;
       return {...state, data: datos};
+    case STOP_DATA:
+      return {
+        ...INITIAL_STATE,
+        data: {...INITIAL_STATE.data, VIN: state.data.VIN},
+      };
+    case RESET_CMD:
+      let cmdID = action.payload;
+      let allData = {...state.data};
+      allData[cmdID] = [];
+      return {...state, data: allData};
     default:
       return {...state};
   }

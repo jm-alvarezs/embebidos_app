@@ -8,15 +8,15 @@
 
 import React from 'react';
 import {View} from 'react-native';
-import DeviceSelect from './src/views/DeviceSelect';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './src/reducers';
+import DeviceSelect from './src/views/DeviceSelect';
 
 const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
-const App = () => {
+function App() {
   return (
     <Provider store={store}>
       <View>
@@ -24,6 +24,6 @@ const App = () => {
       </View>
     </Provider>
   );
-};
+}
 
 export default App;

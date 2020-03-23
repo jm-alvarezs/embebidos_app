@@ -10,3 +10,6 @@ export const SHOW_ALERT = 'SHOW_ALERT';
  */
 export const APPEND_PROPERTY_VALUE = 'APPEND_PROPERTY_VALUE';
 export const SET_PROPERTY_VALUE = 'SET_PROPERTY_VALUE';
+export const CARGA_REGISTRADA = 'CARGA_REGISTRADA';
+export const STOP_DATA = 'STOP_DATA';
+export const RESET_CMD = 'RESET_CMD';

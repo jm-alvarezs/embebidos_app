@@ -1,5 +1,7 @@
-import {DEVICES_RECEIVED, SET_DEVICE, SHOW_ALERT, ATTEMPT} from './types';
+import {SET_DEVICE} from './types';
 
 export const getDevices = () => dispatch => {};
 
-export const setDevice = device => dispatch => {};
+export const setDevice = device => dispatch => {
+  dispatch({type: SET_DEVICE, payload: device});
+};
