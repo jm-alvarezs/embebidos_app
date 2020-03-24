@@ -29,6 +29,7 @@ export const stopLiveData = () => dispatch => {
 };
 
 export const postData = (VIN, cmdID, data) => dispatch => {
+  dispatch({type: RESET_CMD, payload: data[0].cmdID});
   let filtered = data.map(cmd => ({
     ...cmd,
     cmdResult: Number(cmd.cmdResult.replace(/^d/g, '')),
@@ -49,7 +50,6 @@ export const postData = (VIN, cmdID, data) => dispatch => {
     DataService.postData(VIN, cmdID, average, moment().utc()).catch(e =>
       console.log(e),
     );
-    dispatch({type: RESET_CMD, payload: data[0].cmdID});
   }
 };
 
