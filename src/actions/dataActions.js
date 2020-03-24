@@ -31,14 +31,19 @@ export const stopLiveData = () => dispatch => {
 export const postData = (VIN, cmdID, data) => dispatch => {
   let filtered = data.map(cmd => ({
     ...cmd,
-    cmdResult: parseInt(cmd.cmdResult.replace(/^d/g, '')),
+    cmdResult: Number(cmd.cmdResult.replace(/^d/g, '')),
   }));
   if (filtered.length === 0) return;
   let sum = 0;
-  for (let i = 0; i < filtered.legnth; i++) {
-    sum += filtered[0].cmdResult;
+  let count = 0;
+  for (let i = 0; i < filtered.length; i++) {
+    let {cmdResult} = filtered[i];
+    if (cmdResult > 0) {
+      sum += cmdResult;
+      count++;
+    }
   }
-  let average = sum / filtered.length;
+  let average = sum / count;
   if (isNaN(average)) return;
   DataService.postData(VIN, cmdID, average, moment().utc()).catch(e =>
     console.log(e),
