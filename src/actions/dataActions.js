@@ -43,12 +43,14 @@ export const postData = (VIN, cmdID, data) => dispatch => {
       count++;
     }
   }
-  let average = sum / count;
-  if (isNaN(average)) return;
-  DataService.postData(VIN, cmdID, average, moment().utc()).catch(e =>
-    console.log(e),
-  );
-  dispatch({type: RESET_CMD, payload: data[0].cmdID});
+  if (count > 0) {
+    let average = sum / count;
+    if (isNaN(average)) return;
+    DataService.postData(VIN, cmdID, average, moment().utc()).catch(e =>
+      console.log(e),
+    );
+    dispatch({type: RESET_CMD, payload: data[0].cmdID});
+  }
 };
 
 export const postCarga = (VIN, latitud, longitud) => dispatch => {
