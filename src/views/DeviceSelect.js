@@ -53,6 +53,7 @@ class DeviceSelect extends Component {
       this.obdLiveData,
     );
     obd2.startLiveData(device.address);
+    obd2.setMockUpMode(true);
     this.props.setDevice(device);
   }
 
@@ -69,8 +70,8 @@ class DeviceSelect extends Component {
     copyData[data.cmdID] = data;
     this.setState({obd2Data: copyData});
     if (this.fields.findIndex(cmdID => cmdID === data.cmdID) !== -1) {
-      if (this.props[data.cmdID].length === 0) {
-        setInterval(() => {
+      if (!this.intervals[data.cmdID]) {
+        this.intervals[data.cmdID] = setInterval(() => {
           this.postData(data.cmdID);
         }, 30000);
       }
@@ -98,7 +99,7 @@ class DeviceSelect extends Component {
           ))}
         </View>
       );
-    return <Running />;
+    return <Running {...this.props} navigation={this.props.navigation} />;
   }
 
   render() {

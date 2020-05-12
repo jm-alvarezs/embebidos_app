@@ -13,3 +13,7 @@ export const SET_PROPERTY_VALUE = 'SET_PROPERTY_VALUE';
 export const CARGA_REGISTRADA = 'CARGA_REGISTRADA';
 export const STOP_DATA = 'STOP_DATA';
 export const RESET_CMD = 'RESET_CMD';
+/**
+ * Gasolineras
+ */
+export const GASOLINERAS_RECIBIDAS = 'GASOLINERAS_RECIBIDAS';

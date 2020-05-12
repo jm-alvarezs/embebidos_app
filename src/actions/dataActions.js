@@ -32,7 +32,7 @@ export const postData = (VIN, cmdID, data) => dispatch => {
   dispatch({type: RESET_CMD, payload: data[0].cmdID});
   let filtered = data.map(cmd => ({
     ...cmd,
-    cmdResult: Number(cmd.cmdResult.replace(/^d/g, '')),
+    cmdResult: parseFloat(cmd.cmdResult.replace(/^d/g, ''))
   }));
   if (filtered.length === 0) return;
   let sum = 0;
@@ -44,13 +44,12 @@ export const postData = (VIN, cmdID, data) => dispatch => {
       count++;
     }
   }
-  if (count > 0) {
-    let average = sum / count;
-    if (isNaN(average)) return;
-    DataService.postData(VIN, cmdID, average, moment().utc()).catch(e =>
-      console.log(e),
-    );
-  }
+  let average = sum;
+  if (count > 0) average /= count;
+  if (isNaN(average)) return;
+  DataService.postData(VIN, cmdID, average, moment().utc()).catch(e =>
+    console.log(e),
+  );
 };
 
 export const postCarga = (VIN, latitud, longitud) => dispatch => {

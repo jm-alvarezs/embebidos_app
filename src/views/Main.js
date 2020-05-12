@@ -3,6 +3,7 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import DeviceSelect from './DeviceSelect';
 import Running from './Running';
+import Gasolineras from './Gasolineras';
 
 const navigator = createStackNavigator(
   {
@@ -12,6 +13,9 @@ const navigator = createStackNavigator(
     Running: {
       screen: props => <Running {...props} />,
     },
+    Gasolineras: {
+      screen: props => <Gasolineras {...props} />
+    }
   },
   {
     initialRouteName: 'DeviceSelect',

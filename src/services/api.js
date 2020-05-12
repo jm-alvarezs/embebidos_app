@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'https://embebidos.thenorthcode.com/api',
+  baseURL: 'http://192.168.0.102:4000/api',
 });
